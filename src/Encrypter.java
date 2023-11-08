@@ -7,7 +7,7 @@ public class Encrypter {
 
     private int shift;
     private String encrypted;
-
+he
     /**
      * Default Constructor
      */
