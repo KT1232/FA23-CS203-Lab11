@@ -1,13 +1,15 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Encrypter {
 
     private int shift;
     private String encrypted;
-he
+
     /**
      * Default Constructor
      */
@@ -33,6 +35,18 @@ he
      * @throws Exception if an error occurs while reading or writing the files
      */
     public void encrypt(String inputFilePath, String encryptedFilePath) throws Exception {
+        String raw = readFile(inputFilePath);
+        String edited = "";
+        for(int i=0; i < raw.length(); i++) {
+            raw(i)+= shift;
+            char e = (char) raw.charAt(i);
+            edited+= e;
+
+        }
+        
+
+        System.out.println(edited);
+       // writeFile(, encryptedFilePath);
         //TODO: Call the read method, encrypt the file contents, and then write to new file
     }
 
@@ -56,9 +70,18 @@ he
      */
     private static String readFile(String filePath) throws Exception {
         String message = "";
+        try (Scanner fileScanner = new Scanner(Paths.get(filePath))) {
+            while(fileScanner.hasNextLine()) {
+                 message += fileScanner.nextLine();
+            }
+            fileScanner.close();
+        } catch (Exception e) {
+            System.out.println("Error:" + e.toString());
+        }
+         return message;
+        }
         //TODO: Read file from filePath
-        return message;
-    }
+
 
     /**
      * Writes data to a file.
@@ -67,6 +90,12 @@ he
      * @param filePath the path to the file where the data will be written
      */
     private static void writeFile(String data, String filePath) {
+        try (PrintWriter output = new PrintWriter("output.txt")) {
+            output.println(data);
+            output.close();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.toString());
+        }
         //TODO: Write to filePath
     }
 
