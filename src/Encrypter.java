@@ -37,15 +37,20 @@ public class Encrypter {
     public void encrypt(String inputFilePath, String encryptedFilePath) throws Exception {
         String raw = readFile(inputFilePath);
         String edited = "";
+        int m = 0;
         for(int i=0; i < raw.length(); i++) {
-            raw(i)+= shift;
             char e = (char) raw.charAt(i);
-            edited+= e;
+            Character.toString(e);
+            m = Integer.valueOf(e);
+            m+=shift;
+            edited = getChar(e);
+            System.out.println(edited);
+            }
 
-        }
+        
         
 
-        System.out.println(edited);
+        //System.out.println(edited);
        // writeFile(, encryptedFilePath);
         //TODO: Call the read method, encrypt the file contents, and then write to new file
     }
