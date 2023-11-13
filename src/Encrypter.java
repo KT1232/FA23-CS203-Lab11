@@ -37,20 +37,36 @@ public class Encrypter {
     public void encrypt(String inputFilePath, String encryptedFilePath) throws Exception {
         String raw = readFile(inputFilePath);
         String edited = "";
-        int m = 0;
         for(int i=0; i < raw.length(); i++) {
             char e = (char) raw.charAt(i);
-            Character.toString(e);
-            m = Integer.valueOf(e);
-            m+=shift;
-            edited = getChar(e);
-            System.out.println(edited);
+            if ((e >= 'a' && e <= 'z')) {
+                 e += shift;
+                Character.toString(e);
+                int m = Integer.valueOf(e);
+                if (m > 122) {
+                e = 'a';
+                e += m%122 -1;
+                }
+                edited+=e;
+        }
+            else if ((e >= 'A' && e <= 'Z')) {
+                 e += shift;
+                Character.toString(e);
+                int m = Integer.valueOf(e);
+                if (m > 90) {
+                e = 'A';
+                e += m%90 -1;
+                }
+                edited+= e;
             }
-
+            else  {
+                edited+=e;
+            }
+        }
+       System.out.println(edited);
         
         
 
-        //System.out.println(edited);
        // writeFile(, encryptedFilePath);
         //TODO: Call the read method, encrypt the file contents, and then write to new file
     }
@@ -63,6 +79,36 @@ public class Encrypter {
      * @throws Exception if an error occurs while reading or writing the files
      */
     public void decrypt(String messageFilePath, String decryptedFilePath) throws Exception {
+        String raw = readFile(messageFilePath);
+        String edited = "";
+        for(int i=0; i < raw.length(); i++) {
+            char e = (char) raw.charAt(i);
+            if ((e >= 'a' && e <= 'z')) {
+                e-=shift;
+                Character.toString(e);
+                int m = Integer.valueOf(e);
+                if (m < 97) {
+                e = 'z';
+                e -= 97-m -1;
+                
+                }
+                edited+=e;
+        }
+            else if ((e >= 'A' && e <= 'Z')) {
+                 e -= shift;
+                Character.toString(e);
+                int m = Integer.valueOf(e);
+                if (m < 65) {
+                e = 'Z';
+                e -= 65-m  - 1;
+                }
+                edited+= e;
+            }
+            else  {
+                edited+=e;
+            }
+        }
+       System.out.println(edited);
         //TODO: Call the read method, decrypt the file contents, and then write to new file
     }
 
